@@ -1,0 +1,24 @@
+.ace_editor {
+    height: 300px;
+}
+.stdout{
+  font-size: 14px;
+  color: white ;
+}
+.stderr{
+  color: #C00000 ;
+  font-size: 14px;
+}
+.err{
+  color:#FF0000 ;
+  font-size: 14px;
+}
+.md-button.md-icon-button {
+    margin: 0 0.6rem;
+    height: 1.5rem;
+    min-width: 0;
+    line-height: 1.5rem;
+    padding-left: 0;
+    padding-right: 0;
+    width: 4.8rem;
+}

@@ -1,0 +1,71 @@
+<rd-widget>
+  <rd-widget-header icon="fa-tasks" title="Creación/Edición de Proyectos"></rd-widget-header>
+  <rd-widget-body classes="large no-padding" onload="getProyecto()">
+      <div ng-controller="editProyectosCtrl">
+          <ng-form class="form-horizontal" ng-action="#/proyectos">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="id">Id:</label>
+                <div class="col-sm-4">
+                  <input disabled="true" bled type="text" class="form-control" ng-model="proyecto.id" id="id" placeholder="Id">
+                </div>
+              </div>
+           <div class="form-group">
+             <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+             <div class="col-sm-4">
+               <input bled type="text" class="form-control" ng-model="proyecto.nombre" id="nombre" placeholder="Digite un nombre">
+             </div>
+           </div>
+           <div class="form-group">
+             <label class="control-label col-sm-2" for="descripcion">Descripción:</label>
+             <div class="col-sm-4">
+               <textarea type="textarea" class="form-control" ng-model="proyecto.descripcion" id="descripcion" placeholder="Digite una descripcion" rows="5">{{proyecto.descripcion}}</textarea>
+             </div>
+           </div>
+           <div class="form-group">
+             <label class="control-label col-sm-2" for="estado">Estado:</label>
+             <div class="col-sm-4">
+                 <select name="estado" ng-model="proyecto.estado">
+                   <option value="N">Nuevo</option>
+                   <option value="C">Cerrado</option>
+                   <option value="I">Inactivo</option>
+                   <option value="P">En Proceso</option>
+                 </select>
+             </div>
+           </div>
+           <div class="form-group">
+             <div class="col-sm-offset-2 col-sm-1">
+               <button type="submit" class="btn btn-default" ng-click="guardarProyecto()">Guardar</button>
+             </div>
+             <div class="col-sm-offset-1 col-sm-1">
+               <button type="cancel" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+             </div>
+           </div>
+         </ng-form>
+      </div>
+  </rd-widget-body>
+ </rd-widget>
+ <rd-widget>
+   <rd-widget-header icon="fa-tasks" title="Subproyectos asociados"></rd-widget-header>
+   <rd-widget-body classes="large no-padding">
+       <div class="table-responsive" data-ng-controller="editProyectosCtrl">
+           <label class="control-label col-sm-10" for="estado">Subproyectos</label>
+         <table class="table">
+             <thead>
+                 <tr><th></th><th class="text-center">ID</th><th>Proyecto</th><th>Descripcion</th><th><span ng-class='text-success' ><i class="glyphicon glyphicon-edit" ></i></span></th><th><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></th><th><span ><i class="glyphicon glyphicon-minus" ></i></span></th></tr>
+             </thead>
+           <tbody>
+             <!--<tr ng-repeat="proyecto in proyectos"><td><span ng-class="{'text-success':proyecto.estado == 'N'}"><i class="fa fa-flag"></i></span></td><td>{{proyecto.id}}</td><td>{{proyecto.nombre}}</td><td>{{proyecto.descripcion}}</td><td><button type="button" class="btn btn-default" ng-click="editProyecto(proyecto)" ><span ng-class="{'text-success':proyecto.estado == 'N'}" ><i class="glyphicon glyphicon-edit" ><</i></span></button></td></tr>-->
+             <tr ng-repeat="subproyecto in subproyectos">
+                 <td><span ng-class="{'text-success':subproyecto.estado == 'N'}"><i class="fa fa-flag"></i></span></td>
+                 <td>{{subproyecto.id}}</td>
+                 <td>{{subproyecto.nombre}}</td>
+                 <td>{{subproyecto.descripcion}}</td>
+                 <td><a ng-href="#/subproyectos/edit" ng-click="editSubroyecto(subproyecto)" ><span ng-class="{'text-success':proyecto.estado == 'N'}" ><i class="glyphicon glyphicon-edit" ></i></span></a></td>
+                 <td><a ng-href="#/subproyectos/edit" ng-click="addProyecto()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></td>
+                 <td><a ng-click="delProyecto($event,proyecto)" ><span ><i class="glyphicon glyphicon-minus" ></i></span></a></td>
+             </tr>
+           </tbody>
+         </table>
+       </div>
+   </rd-widget-body>
+  </rd-widget>

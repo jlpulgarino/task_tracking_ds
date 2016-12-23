@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+var debug = require('debug')('cupireservas');
+var db = require("../models");
+var Promise = require('bluebird');
+var fs = require("fs");
+
+generateData();
+
+function generateData() {
+    var proyectoCreado;
+    db.sequelize.sync({
+        force: true
+    }).then(function() {
+        return db.Departamento.create({
+            nombre: "Finanzas",
+            descripcion: "Departamento financiero."
+        });
+    }).then(function() {
+        return db.Proyecto.create({
+            nombre: "ProyectoA",
+            descripcion: "Proyecto de Prueba"
+        });
+    });
+
+}

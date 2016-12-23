@@ -1,0 +1,23 @@
+<md-content class="md-padding" layout="row" layout-align="center center">
+    <md-card md-theme-watch flex-gt-sm="33" flex="66">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Ingreso</span>
+                <span class="md-subhead">Digite sus credenciales</span>
+            </md-card-title-text>
+        </md-card-title>
+        <section layout="column" layout-align="center center">
+            <md-input-container>
+                <label>Usuario</label>
+                <input ng-model="userLogin.username">
+            </md-input-container>
+            <md-input-container>
+                <label>Contraseña</label>
+                <input ng-model="userLogin.password" type="password">
+            </md-input-container>
+        </section>
+        <md-card-actions layout="column" layout-align="center">
+            <md-button ng-click="login(userLogin)">Ingresar</md-button>
+        </md-card-actions>
+    </md-card>
+</md-content>
