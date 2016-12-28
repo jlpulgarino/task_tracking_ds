@@ -99,6 +99,7 @@ router.post('/:id/subproyectos/', function(req, res, next) {
     var subproyecto = {
         id: data.get('id'),
         nombre: data.get('nombre', 'Debe seleccionar un nombre para el subproyecto.'),
+        estado: data.get('estado'),
         descripcion: data.get('descripcion'),
         DepartamentoId: data.get('DepartamentoId', 'Debe seleccionar un departamento.')
     };

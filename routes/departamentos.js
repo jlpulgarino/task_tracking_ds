@@ -9,7 +9,7 @@ var router = express.Router();
  * Define el comportamiento de un Get enviado a la ruta 'proyecto/:id' para obtener un proyecto particular
  */
 router.get('/:id', function(req, res, next) {
-    db.Subproyecto.findById(req.params.id).then(function(resp) {
+    db.Departamento.findById(req.params.id).then(function(resp) {
         return res.send(resp);
     }).catch(next);
 });
@@ -17,7 +17,7 @@ router.get('/:id', function(req, res, next) {
  * Define el comportamiento de un Get enviado a la ruta 'proyecto/ para obtener Todos los proyectos
  */
 router.get('/', function(req, res, next) {
-    db.Subproyecto.findAll().then(function(resp) {
+    db.Departamento.findAll().then(function(resp) {
         return res.send(resp);
     }).catch(next);
 });
@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
  * filtrados por nombre o descripcion.
  */
 router.get('/filtro/:parm', function(req, res, next) {
-    db.Subproyecto.findAll({
+    db.Departamento.findAll({
         where: {
             $or: [{
                 nombre: {
@@ -48,9 +48,10 @@ router.get('/filtro/:parm', function(req, res, next) {
  * Define el comportamiento de un Get enviado a la ruta 'proyecto/:id' para obtener Todos los proyectos
  */
 router.delete('/:id', function(req, res, next) {
-    db.Subproyecto.findById(req.params.id).then(function(subproyectoEliminado) {
-        if (subproyectoEliminado) {
-            return subproyectoEliminado.destroy().then(function() {
+    console.log('Delete('+req.params.id+')');
+    db.Departamento.findById(req.params.id).then(function(departamentoEliminado) {
+        if (departamentoEliminado) {
+            return departamentoEliminado.destroy().then(function() {
                 return res.send('OK');
             });
         } else {
@@ -63,39 +64,36 @@ router.delete('/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
     var data = utils.getterFromPost(req);
-    console.log('Estado subpry:'+data.get('estado'));
-    var subproyectoEmulado = {
+    var departamentoEmulado = {
         id: data.get('id'),
-        nombre: data.get('nombre', 'Debe seleccionar un nombre para el subproyecto.'),
+        nombre: data.get('nombre', 'El nombre es requerido'),
         descripcion: data.get('descripcion'),
-        estado: data.get('estado'),
-        DepartamentoId: data.get('DepartamentoId', 'Debe seleccionar un departamento.'),
-        ProyectoId: data.get('ProyectoId', 'Debe seleccionar un proyecto.')
+        estado: data.get('estado')
     };
 
-    db.Subproyecto.save(subproyectoEmulado).then(function(subproyectoEmuladoActualizado) {
-        res.send(subproyectoEmuladoActualizado);
+    db.Departamento.save(departamentoEmulado).then(function(departamentoActualizado) {
+        res.send(departamentoActualizado);
     }).catch(next);
 
 });
 
 /**
- * MANEJO DE TAREAS
+ * MANEJO DE SUBPROYECTOS
  */
-
-router.get('/:id/tareas/', function(req, res, next) {
-    var subproyectoId = req.params.id;
-    var subproyectoEmulado = db.Subproyecto.build({
-        id: subproyectoId
+ /*
+router.get('/:id/subproyectos/', function(req, res, next) {
+    var proyectoId = req.params.id;
+    var proyectoEmulado = db.Proyecto.build({
+        id: proyectoId
     });
-    return subproyectoEmulado.getTareas().then(function(tareas) {
-        tareas.sort(function(a, b) {
+    return proyectoEmulado.getSubproyectos().then(function(subproyectos) {
+        subproyectos.sort(function(a, b) {
             return a.id - b.id;
         });
-        res.send(tareas);
+        res.send(subproyectos);
     });
 });
-/*
+
 router.post('/:id/subproyectos/', function(req, res, next) {
     var proyectoId = req.params.id;
     var data = utils.getterFromPost(req);

@@ -2,7 +2,7 @@
   <rd-widget-header icon="fa-tasks" title="Creación/Edición de Subroyectos"></rd-widget-header>
   <rd-widget-body classes="large no-padding" >
       <div ng-controller="editSubproyectosCtrl">
-          <ng-form class="form-horizontal" ng-action="#/proyectos">
+          <ng-form class="form-horizontal" ng-action="#/subproyectos">
               <div class="form-group">
                 <label class="control-label col-sm-2" for="id">Id:</label>
                 <div class="col-sm-4">
@@ -22,19 +22,25 @@
              </div>
            </div>
            <div class="form-group">
-             <label class="control-label col-sm-2" for="estado">Estado:</label>
+             <label class="control-label col-sm-2" for="DepartamentoId">Departamento: </label>
              <div class="col-sm-4">
-                 <select name="estado" ng-model="subproyecto.estado">
-                   <option value="N">Nuevo</option>
-                   <option value="C">Cerrado</option>
-                   <option value="I">Inactivo</option>
-                   <option value="P">En Proceso</option>
-                 </select>
+               <select name="DepartamentoId" ng-model="subproyecto.DepartamentoId" ng-options="departamento.id as departamento.nombre for departamento in departamentos" ></select>
              </div>
          </div>
+         <div class="form-group">
+           <label class="control-label col-sm-2" for="estado">Estado:</label>
+           <div class="col-sm-4">
+               <select name="estado" ng-model="subproyecto.estado">
+                 <option value="N">Nuevo</option>
+                 <option value="C">Cerrado</option>
+                 <option value="I">Inactivo</option>
+                 <option value="P">En Proceso</option>
+               </select>
+           </div>
+       </div>
            <div class="form-group">
              <div class="col-sm-offset-2 col-sm-1">
-               <button type="submit" class="btn btn-default" ng-click="guardarProyecto()">Guardar</button>
+               <button type="submit" class="btn btn-default" ng-click="guardarSubproyecto()">Guardar</button>
              </div>
              <div class="col-sm-offset-1 col-sm-1">
                <button type="cancel" class="btn btn-default" ng-click="cancel()">Cancelar</button>

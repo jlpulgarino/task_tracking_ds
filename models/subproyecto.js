@@ -24,6 +24,11 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(1500),
             field: 'descripcion',
             allowNull: true
+        },
+        estado: {
+            type: DataTypes.STRING(1),
+            field: 'estado',
+            allowNull: true
         }
     }, {
         timestamps: true,
