@@ -57,7 +57,13 @@
            <label class="control-label col-sm-10" for="estado">Tareas</label>
          <table class="table">
              <thead>
-                 <tr><th></th><th class="text-center">ID</th><th>Nombre</th><th>Descripcion</th><th><span ng-class='text-success' ><i class="glyphicon glyphicon-edit" ></i></span></th><th><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></th><th><span ><i class="glyphicon glyphicon-minus" ></i></span></th></tr>
+                 <tr><th></th>
+                     <th class="text-center">ID</th>
+                     <th>Nombre</th>
+                     <th>Descripcion</th>
+                     <th><span ng-class='text-success' ><i class="glyphicon glyphicon-edit" ></i></span></th>
+                     <th><a ng-href="#/tareas/edit" ng-click="addTarea()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></th>
+                     <th><span ><i class="glyphicon glyphicon-minus" ></i></span></th></tr>
              </thead>
            <tbody>
              <tr ng-repeat="tarea in tareas">
@@ -65,9 +71,9 @@
                  <td>{{tarea.id}}</td>
                  <td>{{tarea.nombre}}</td>
                  <td>{{tarea.descripcion}}</td>
-                 <td><a ng-href="#/proyectos/edit" ng-click="editProyecto(proyecto)" ><span ng-class="{'text-success':proyecto.estado == 'N'}" ><i class="glyphicon glyphicon-edit" ></i></span></a></td>
-                 <td><a ng-href="#/proyectos/edit" ng-click="addProyecto()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></td>
-                 <td><a ng-click="delProyecto($event,proyecto)" ><span ><i class="glyphicon glyphicon-minus" ></i></span></a></td>
+                 <td><a ng-href="#/tareas/edit" ng-click="editTarea(tarea)" ><span ng-class="{'text-success':proyecto.estado == 'N'}" ><i class="glyphicon glyphicon-edit" ></i></span></a></td>
+                 <td><a ng-href="#/tareas/edit" ng-click="addTarea()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></td>
+                 <td><a ng-click="delTarea($event,tarea)" ><span ><i class="glyphicon glyphicon-minus" ></i></span></a></td>
              </tr>
            </tbody>
          </table>

@@ -69,6 +69,7 @@ router.post('/', function(req, res, next) {
         descripcion: data.get('descripcion'),
         fecini: data.get('fecini'),
         fecfin: data.get('fecfin'),
+        estado: data.get('estado'),
         SubproyectoId: data.get('SubproyectoId', 'Debe seleccionar un Subproyecto.')
     };
 
