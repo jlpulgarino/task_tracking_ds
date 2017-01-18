@@ -12,12 +12,16 @@
   <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="components/rdash-ui/dist/css/rdash.min.css">
-  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" type="text/css">
-  <link rel="stylesheet" href="bower_components/angular-resizable/angular-resizable.min.css" type="text/css">
-  <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" type="text/css">
-  <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="css/css.css" type="text/css">
-  <link rel="stylesheet" href="css/eclipse.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-resizable/angular-resizable.min.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-material-data-table/dist/md-data-table.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-material-data-table/dist/md-data-table.min.css">
+  <link rel="stylesheet" type="text/css" href="src/components/angular-gantt/dist/angular-gantt.min.css">
+  <link rel="stylesheet" type="text/css" href="src/components/angular-gantt/dist/angular-gantt-plugins.min.css">
+  <link rel="stylesheet" type="text/css" href="src/components/angular-ui-tree/dist/angular-ui-tree.min.css">
+  <link rel="stylesheet" type="text/css" href="src/components/angular-tree-dnd/dist/ng-tree-dnd.min.css">
+  <link rel="stylesheet" type="text/css" href="css/css.css">
+  <link rel="stylesheet" type="text/css" href="css/eclipse.css">
   <link rel="shortcut icon" href="favico.png" type="image/png">
   <link rel="icon" href="favico.png" type="image/png">
   <link rel="apple-touch-icon" href="favico.png" type="image/png">
@@ -33,6 +37,7 @@
   <script type="text/javascript" src="bower_components/angular-messages/angular-messages.min.js"></script>
   <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
   <script type="text/javascript" src="bower_components/moment/locale/es.js"></script>
+
   <!-- endbuild -->
   <!-- Custom Scripts -->
   <!--<script src="app/proyectos/Proyecto.js"></script>-->
@@ -44,6 +49,15 @@
   <script type="text/javascript"  src="app/global/EventHandler.js"></script>
   <script type="text/javascript"  src="app/login/User.js"></script>
   <script type="text/javascript" src="dist/js/dashboard.min.js"></script>
+  <script type="text/javascript" src="src/components/angular-moment/angular-moment.min.js"></script>
+  <script type="text/javascript" src="src/components/angular-gantt/dist/angular-gantt.min.js"></script>
+  <script type="text/javascript" src="src/components/angular-gantt/dist/angular-gantt-plugins.min.js"></script>
+  <script type="text/javascript" src="src/components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+  <script type="text/javascript" src="src/components/angular-tree-dnd/dist/ng-tree-dnd.js"></script>
+  <script type="text/javascript" src="src/components/angular-tree-dnd/dist/ng-tree-dnd.min.js"></script>
+  <script type="text/javascript" src="components/chart.js/dist/Chart.min.js"></script>
+  <script type="text/javascript" src="components/angular-chart.js/dist/angular-chart.min.js"></script>
+
   <!--<script src="app/proyectos/proyectos.js"></script>-->
 </head>
 <body ng-controller="MasterCtrl">
@@ -54,19 +68,31 @@
       <ul class="sidebar">
         <li class="sidebar-main">
           <a ng-click="toggleSidebar()">
-            Coltoys
+            Coltoys-Top_Promotions
             <span class="menu-icon glyphicon glyphicon-transfer"></span>
           </a>
         </li>
-        <li class="sidebar-title"><span>NAVEGACION</span></li>
+        <!--<li class="sidebar-title"><span>NAVEGACION</span></li>
         <li class="sidebar-list">
           <a href="#">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
         </li>
         <li class="sidebar-list">
           <a href="#/tables">Tables <span class="menu-icon fa fa-table"></span></a>
-        </li>
+      </li>-->
+      <li class="sidebar-list">
+        <a href="#/departamentos">Departamentos <span class="menu-icon fa fa-users"></span></a>
+      </li>
+      <li class="sidebar-list">
+        <a href="#/colaboradores">Colaboradores <span class="menu-icon fa fa-users"></span></a>
+      </li>
         <li class="sidebar-list">
           <a href="#/proyectos">Proyectos <span class="menu-icon fa fa-table"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/reportes/gantt">Gantt <span class="menu-icon fa fa-tasks"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/reportes/listaTareas">Tareas <span class="menu-icon fa fa-tasks"></span></a>
         </li>
       </ul>
       <div class="sidebar-footer">

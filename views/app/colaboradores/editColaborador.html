@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-lg-8">
+      <rd-widget>
+        <rd-widget-header icon="fa-users" title="Creación/Edición de Colaboradores"></rd-widget-header>
+        <rd-widget-body classes="large no-padding" >
+            <div ng-controller="editColaboradorCtrl">
+                <ng-form class="form-horizontal" ng-action="#/colaboradores">
+                    <div class="form-group">
+                      <label class="control-label col-sm-2" for="id">Id:</label>
+                      <div class="col-sm-4">
+                        <input disabled="true" bled type="text" class="form-control" ng-model="colaborador.id" id="id" placeholder="Id">
+                      </div>
+                    </div>
+                 <div class="form-group">
+                   <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+                   <div class="col-sm-4">
+                     <input bled type="text" class="form-control" ng-model="colaborador.nombre" id="nombre" placeholder="Digite un nombre">
+                   </div>
+                 </div>
+                 <div class="form-group">
+                   <label class="control-label col-sm-2" for="cargo">Cargo:</label>
+                   <div class="col-sm-4">
+                     <input type="text" class="form-control" ng-model="colaborador.cargo" id="cargo" placeholder="Digite un cargo">
+                   </div>
+                 </div>
+                 <div class="form-group">
+                   <label class="control-label col-sm-2" for="usuario">Usuario:</label>
+                   <div class="col-sm-4">
+                     <input bled type="text" class="form-control" ng-model="colaborador.usuario" id="usuario" placeholder="Digite un usuario para el colaborador">
+                   </div>
+                 </div>
+                 <div class="form-group">
+                   <label class="control-label col-sm-2" for="password">Cotraseña:</label>
+                   <div class="col-sm-4">
+                     <input bled type="password" class="form-control" ng-model="colaborador.password" id="password" placeholder="Digite un password">
+                   </div>
+                 </div>
+                 <div class="form-group">
+                   <label class="control-label col-sm-2" for="email">E-mail:</label>
+                   <div class="col-sm-4">
+                     <input bled type="email" class="form-control" ng-model="colaborador.email" id="email" placeholder="Digite un email">
+                   </div>
+                 </div>
+                 <div class="form-group">
+                   <label class="control-label col-sm-2" for="DepartamentoId">Departamento: </label>
+                   <div class="col-sm-4">
+                     <select name="DepartamentoId" ng-model="colaborador.DepartamentoId" ng-options="departamento.id as departamento.nombre for departamento in departamentos" ></select>
+                   </div>
+               </div>
+               <div class="form-group">
+                 <label class="control-label col-sm-2" for="rol">Rol:</label>
+                 <div class="col-sm-4">
+                     <select name="rol" ng-model="colaborador.rol">
+                       <option value="A">Administrador</option>
+                       <option value="C">Colaborador</option>
+                       <option value="D">Directivo</option>
+                     </select>
+                 </div>
+             </div>
+                 <div class="form-group">
+                   <div class="col-sm-offset-2 col-sm-1">
+                     <button type="submit" class="btn btn-default" ng-click="guardarColaborador()">Guardar</button>
+                   </div>
+                   <div class="col-sm-offset-1 col-sm-1">
+                     <button type="cancel" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                   </div>
+                 </div>
+               </ng-form>
+            </div>
+        </rd-widget-body>
+       </rd-widget>
+  </div>
+</div>

@@ -70,7 +70,8 @@ router.post('/', function(req, res, next) {
         fecini: data.get('fecini'),
         fecfin: data.get('fecfin'),
         estado: data.get('estado'),
-        SubproyectoId: data.get('SubproyectoId', 'Debe seleccionar un Subproyecto.')
+        SubproyectoId: data.get('SubproyectoId', 'Debe seleccionar un Subproyecto.'),
+        ColaboradorId: data.get('ColaboradorId', 'Debe seleccionar un Colaborador.')
     };
 
     db.Tarea.save(tareaEmulada).then(function(tareaEmuladaActualizada) {

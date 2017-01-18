@@ -4,6 +4,7 @@ var db = require('../models');
 var Promise = require('bluebird');
 var express = require('express');
 var router = express.Router();
+var moment = require('moment');
 
 /**
  * Define el comportamiento de un Get enviado a la ruta 'proyecto/:id' para obtener un proyecto particular
@@ -92,6 +93,171 @@ router.get('/:id/subproyectos/', function(req, res, next) {
         res.send(subproyectos);
     });
 });
+
+router.get('/:id/gantt/:filtro', function(req, res, next) {
+    var rangoProyecto = [0,999999999];
+    var rangoSubproyecto = [0,999999999];
+    var filtro = req.params.filtro;
+    var camposFiltro = filtro.split('_');
+    var filtroSbpry = parseInt(camposFiltro[1]);
+    var filtroTarea = camposFiltro[2];
+    if(req.params.id > 0){
+        rangoProyecto[0] = req.params.id;
+        rangoProyecto[1] = req.params.id;
+    }
+    if(filtroSbpry > 0){
+        rangoSubproyecto[0] = filtroSbpry;
+        rangoSubproyecto[1] = filtroSbpry;
+    }
+    if(filtroTarea == 'T'){
+        filtroTarea = '%';
+    }
+    db.Proyecto.findAll({
+    include: [{
+        model: db.Subproyecto,
+          include: [
+            {
+              model: db.Tarea,
+              include: [
+                  {
+                      model: db.Colaborador
+                  },
+                  {
+                      model: db.Registro
+                  },
+                  {
+                      model: db.Estimacion
+                  }
+              ],
+              where: {estado: {
+                  $like: filtroTarea
+              }}
+            }
+          ],
+          where: {id: {
+              $between: rangoSubproyecto
+          }}
+    }],
+    where: {id: {
+        $between: rangoProyecto
+    }}
+}).then(function(proyectos){
+    console.log(proyectos);
+    return proyectos;
+}).then(proyectos => {
+      const resObj = proyectos.map(proyecto => {
+
+        //tidy up the proyecto data
+        return Object.assign(
+          {},
+          {
+            id: proyecto.id,
+            nombre: proyecto.nombre,
+            subproyectos: proyecto.Subproyectos.map(subproyecto => {
+
+              //tidy up the subproyecto data
+              return Object.assign(
+                {},
+                {
+                  id: subproyecto.id,
+                  nombre: subproyecto.nombre,
+                  tareas: subproyecto.Tareas.map(tarea => {
+
+                        //tidy up the subproyecto data
+                        return Object.assign(
+                          {},
+                          {
+                            id: tarea.id,
+                            nombre: tarea.nombre,
+                            estado: tarea.estado,
+                            fecini: moment(new Date(tarea.fecini)).format("YYYY-MM-DD"),
+                            fecfin: moment(new Date(tarea.fecfin)).format("YYYY-MM-DD"),
+                            dias: moment(new Date(tarea.fecfin)).diff(moment(new Date(tarea.fecini)), 'days'),
+                            colaborador: tarea.Colaborador,
+                            registros: tarea.Registros.map(registro => {
+                                return Object.assign(
+                                  {},
+                                  {
+                                      id: registro.id,
+                                      fecha: moment(new Date(registro.fecha)).format("YYYY-MM-DD"),
+                                      horas: registro.horas
+                                  })
+                            }),
+                            estimaciones: tarea.Estimacions.map(estimacion => {
+                                return Object.assign(
+                                  {},
+                                  {
+                                      id: estimacion.id,
+                                      semana: estimacion.semana,
+                                      porcentaje: estimacion.porcentaje
+                                  })
+                            })
+                          }
+                          )
+                      })
+                }
+                )
+            })
+          }
+        )
+      });
+      res.send(resObj)
+      //res.send(proyectos)
+    });
+});
+
+router.get('/:id/burndown/', function(req, res, next) {
+    db.Proyecto.findAll({
+    include: [{
+        model: db.Subproyecto,
+          include: [
+            {
+              model: db.Tarea
+            }
+          ]
+    }]
+}).then(proyectos => {
+      const resObj = proyectos.map(proyecto => {
+
+        //tidy up the proyecto data
+        return Object.assign(
+          {},
+          {
+            id: proyecto.id,
+            nombre: proyecto.nombre,
+            subproyectos: proyecto.Subproyectos.map(subproyecto => {
+
+              //tidy up the subproyecto data
+              return Object.assign(
+                {},
+                {
+                  id: subproyecto.id,
+                  nombre: subproyecto.nombre,
+                  tareas: subproyecto.Tareas.map(tarea => {
+
+                        //tidy up the subproyecto data
+                        return Object.assign(
+                          {},
+                          {
+                            id: tarea.id,
+                            nombre: tarea.nombre,
+                            estado: tarea.estado,
+                            fecini: new Date(tarea.fecini),
+                            fecfin: new Date(tarea.fecfin),
+                            dias: moment(new Date(tarea.fecfin)).diff(moment(new Date(tarea.fecini)), 'days')
+                          }
+                          )
+                      })
+                }
+                )
+            })
+          }
+        )
+      });
+      res.send(resObj)
+    });
+});
+
 
 router.post('/:id/subproyectos/', function(req, res, next) {
     var proyectoId = req.params.id;

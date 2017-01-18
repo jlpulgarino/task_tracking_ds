@@ -1,0 +1,30 @@
+<div data-ng-controller="ganttController">
+<div>
+    <ng-form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-6">
+             <label for="pryId">Proyecto: </label>
+              <select name="pryId" ng-model="filtro.pryId" ng-options="proyecto.id as proyecto.nombre for proyecto in proyectos" >
+                  <option value="0">Todos</option>
+              </select>
+              <label  for="estadoTarea">Estado:</label>
+              <select name="estadoTarea" ng-model="filtro.estadoTarea">
+               <option value="T">Todos</option>
+               <option value="N">Nuevo</option>
+               <option value="C">Cerrado</option>
+               <option value="I">Inactivo</option>
+               <option value="P">En Proceso</option>
+             </select>
+             <button type="submit" class="btn btn-default" ng-click="refreshGantt()">Ver Gantt</button>
+            </div>
+        </div>
+    </ng-form>
+</div>
+<div gantt data=data >
+  <!--<gantt-table></gantt-table>
+  <gantt-movable></gantt-movable>-->
+  <gantt-tooltips></gantt-tooltips>
+  <gantt-tree enabled="true">
+  </gantt-tree>
+</div>
+</div>

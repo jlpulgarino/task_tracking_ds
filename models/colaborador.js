@@ -52,6 +52,7 @@ module.exports = function(sequelize, DataTypes) {
             associate: function(dbP) {
                 db = dbP;
                 db.Colaborador.belongsTo(db.Departamento);
+                db.Colaborador.hasMany(db.Tarea);
             },
             save: function(model) {
                 return db.Colaborador.findById(model.id).then(function(modelAnt) {

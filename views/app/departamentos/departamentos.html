@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-8">
+    <rd-widget>
+      <rd-widget-header icon="fa-users" title="Departamentos"></rd-widget-header>
+      <rd-widget-body classes="large no-padding">
+        <div class="table-responsive" data-ng-controller="departamentosCtrl">
+          <table class="table">
+              <thead>
+                  <tr><th class="text-center">ID</th><th>Nombre</th><th><span ng-class='text-success' ><i class="glyphicon glyphicon-edit" ></i></span></th><th><a ng-href="#/colaboradores/edit" ng-click="addDepartamento()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></th><th><span ><i class="glyphicon glyphicon-minus" ></i></span></th></tr>
+              </thead>
+            <tbody>
+              <!--<tr ng-repeat="proyecto in proyectos"><td><span ng-class="{'text-success':proyecto.estado == 'N'}"><i class="fa fa-flag"></i></span></td><td>{{proyecto.id}}</td><td>{{proyecto.nombre}}</td><td>{{proyecto.descripcion}}</td><td><button type="button" class="btn btn-default" ng-click="editProyecto(proyecto)" ><span ng-class="{'text-success':proyecto.estado == 'N'}" ><i class="glyphicon glyphicon-edit" ><</i></span></button></td></tr>-->
+              <tr ng-repeat="departamento in departamentos">
+                  <td>{{departamento.id}}</td>
+                  <td>{{departamento.nombre}}</td>
+                  <td><a ng-href="#/departamentos/edit" ng-click="editDepartamento(departamento)" ><span ng-class="text-success" ><i class="glyphicon glyphicon-edit" ></i></span></a></td>
+                  <td><a ng-href="#/departamentos/edit" ng-click="addDepartamento()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></td>
+                  <td><a ng-click="delDepartamento($event,departamento)" ><span ><i class="glyphicon glyphicon-minus" ></i></span></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </rd-widget-body>
+      <!--<rd-widget-footer>
+        <ul class="pagination pagination-sm pull-right">
+          <li><a href="#">&laquo;</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">&raquo;</a></li>
+        </ul>
+        <div class="clearfix"></div>
+    </rd-widget-footer>-->
+    </rd-widget>
+  </div>
+</div>

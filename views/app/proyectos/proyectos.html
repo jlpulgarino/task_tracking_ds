@@ -6,7 +6,7 @@
         <div class="table-responsive" data-ng-controller="ProyectosCtrl">
           <table class="table">
               <thead>
-                  <tr><th></th><th class="text-center">ID</th><th>Proyecto</th><th>Descripcion</th><th><span ng-class='text-success' ><i class="glyphicon glyphicon-edit" ></i></span></th><th><a ng-href="#/proyectos/edit" ng-click="addProyecto()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></th><th><span ><i class="glyphicon glyphicon-minus" ></i></span></th></tr>
+                  <tr><th></th><th class="text-center">ID</th><th>Proyecto</th><th>Descripcion</th><th><span ng-class='text-success' ><i class="glyphicon glyphicon-edit" ></i></span></th><th><a ng-href="#/proyectos/edit" ng-click="addProyecto()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></th><th><span ><i class="glyphicon glyphicon-minus" ></i></span></th><th><span ><i class="glyphicon glyphicon-equalizer" ></i></span></th></tr>
               </thead>
             <tbody>
               <!--<tr ng-repeat="proyecto in proyectos"><td><span ng-class="{'text-success':proyecto.estado == 'N'}"><i class="fa fa-flag"></i></span></td><td>{{proyecto.id}}</td><td>{{proyecto.nombre}}</td><td>{{proyecto.descripcion}}</td><td><button type="button" class="btn btn-default" ng-click="editProyecto(proyecto)" ><span ng-class="{'text-success':proyecto.estado == 'N'}" ><i class="glyphicon glyphicon-edit" ><</i></span></button></td></tr>-->
@@ -18,6 +18,7 @@
                   <td><a ng-href="#/proyectos/edit" ng-click="editProyecto(proyecto)" ><span ng-class="{'text-success':proyecto.estado == 'N'}" ><i class="glyphicon glyphicon-edit" ></i></span></a></td>
                   <td><a ng-href="#/proyectos/edit" ng-click="addProyecto()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></td>
                   <td><a ng-click="delProyecto($event,proyecto)" ><span ><i class="glyphicon glyphicon-minus" ></i></span></a></td>
+                  <td><a ng-href="#/reportes/proyectoChart" ng-click="getProyectoChart(proyecto)" ><span ng-class='text-success'><i class="glyphicon glyphicon-equalizer" ></i></span></a></td>
               </tr>
             </tbody>
           </table>

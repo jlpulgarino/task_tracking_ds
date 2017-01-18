@@ -47,6 +47,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                          <label class="control-label col-sm-2" for="ColaboradorId">Asignado a: </label>
+                          <div class="col-sm-4">
+                            <select name="ColaboradorId" ng-model="tarea.ColaboradorId" ng-options="colaborador.id as colaborador.nombre for colaborador in colaboradores" ></select>
+                          </div>
+                      </div>
+                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-1">
                                 <button type="submit" class="btn btn-default" ng-click="guardarTarea()">Guardar</button>
                             </div>
