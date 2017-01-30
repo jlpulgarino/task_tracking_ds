@@ -66,7 +66,7 @@ router.post('/', function(req, res, next) {
     var estimacionEmulada = {
         id: data.get('id'),
         semana: data.get('semana', 'Debe seleccionar una semana.'),
-        porcentaje: data.get('porcentaje', 'Debe indicar porcentaje.'),
+        horas: data.get('horas', 'Debe indicar numero de horas.'),
         TareaId: data.get('TareaId', 'Debe seleccionar una tarea.')
     };
 

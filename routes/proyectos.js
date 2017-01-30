@@ -97,8 +97,10 @@ router.get('/:id/subproyectos/', function(req, res, next) {
 router.get('/:id/gantt/:filtro', function(req, res, next) {
     var rangoProyecto = [0,999999999];
     var rangoSubproyecto = [0,999999999];
+    var rangoColaborador = [0,999999999];
     var filtro = req.params.filtro;
     var camposFiltro = filtro.split('_');
+    var filtroColb = camposFiltro[0];
     var filtroSbpry = parseInt(camposFiltro[1]);
     var filtroTarea = camposFiltro[2];
     if(req.params.id > 0){
@@ -112,6 +114,11 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
     if(filtroTarea == 'T'){
         filtroTarea = '%';
     }
+    if(filtroColb > 0){
+        rangoColaborador[0] = filtroColb;
+        rangoColaborador[1] = filtroColb;
+    }
+
     db.Proyecto.findAll({
     include: [{
         model: db.Subproyecto,
@@ -120,7 +127,10 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
               model: db.Tarea,
               include: [
                   {
-                      model: db.Colaborador
+                      model: db.Colaborador,
+                      where: {id: {
+                          $between: rangoColaborador
+                      }}
                   },
                   {
                       model: db.Registro
@@ -170,6 +180,7 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
                             id: tarea.id,
                             nombre: tarea.nombre,
                             estado: tarea.estado,
+                            horas: tarea.horas,
                             fecini: moment(new Date(tarea.fecini)).format("YYYY-MM-DD"),
                             fecfin: moment(new Date(tarea.fecfin)).format("YYYY-MM-DD"),
                             dias: moment(new Date(tarea.fecfin)).diff(moment(new Date(tarea.fecini)), 'days'),
@@ -180,6 +191,7 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
                                   {
                                       id: registro.id,
                                       fecha: moment(new Date(registro.fecha)).format("YYYY-MM-DD"),
+                                      semana: moment(new Date(registro.fecha)).week(),
                                       horas: registro.horas
                                   })
                             }),
@@ -189,7 +201,7 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
                                   {
                                       id: estimacion.id,
                                       semana: estimacion.semana,
-                                      porcentaje: estimacion.porcentaje
+                                      horas: estimacion.horas
                                   })
                             })
                           }
@@ -203,58 +215,6 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
       });
       res.send(resObj)
       //res.send(proyectos)
-    });
-});
-
-router.get('/:id/burndown/', function(req, res, next) {
-    db.Proyecto.findAll({
-    include: [{
-        model: db.Subproyecto,
-          include: [
-            {
-              model: db.Tarea
-            }
-          ]
-    }]
-}).then(proyectos => {
-      const resObj = proyectos.map(proyecto => {
-
-        //tidy up the proyecto data
-        return Object.assign(
-          {},
-          {
-            id: proyecto.id,
-            nombre: proyecto.nombre,
-            subproyectos: proyecto.Subproyectos.map(subproyecto => {
-
-              //tidy up the subproyecto data
-              return Object.assign(
-                {},
-                {
-                  id: subproyecto.id,
-                  nombre: subproyecto.nombre,
-                  tareas: subproyecto.Tareas.map(tarea => {
-
-                        //tidy up the subproyecto data
-                        return Object.assign(
-                          {},
-                          {
-                            id: tarea.id,
-                            nombre: tarea.nombre,
-                            estado: tarea.estado,
-                            fecini: new Date(tarea.fecini),
-                            fecfin: new Date(tarea.fecfin),
-                            dias: moment(new Date(tarea.fecfin)).diff(moment(new Date(tarea.fecini)), 'days')
-                          }
-                          )
-                      })
-                }
-                )
-            })
-          }
-        )
-      });
-      res.send(resObj)
     });
 });
 

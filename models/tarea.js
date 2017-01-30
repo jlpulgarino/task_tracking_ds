@@ -39,6 +39,11 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.DATE,
             field: 'fecfin',
             allowNull: true
+        },
+        horas: {
+            type: DataTypes.INTEGER,
+            field: 'horas',
+            allowNull: false
         }
     }, {
         timestamps: true,

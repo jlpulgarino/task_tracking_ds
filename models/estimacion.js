@@ -17,12 +17,12 @@ module.exports = function(sequelize, DataTypes) {
         },
         semana: {
             type: DataTypes.INTEGER,
-            field: 'fecha',
+            field: 'semana',
             allowNull: false
         },
-        porcentaje: {
+        horas: {
             type: DataTypes.INTEGER,
-            field: 'porcentaje',
+            field: 'horas',
             allowNull: false
         }
     }, {

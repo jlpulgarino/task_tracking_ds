@@ -1,6 +1,12 @@
 <div data-ng-controller="ganttController">
 <div>
     <ng-form class="form-horizontal">
+        <div ng-show = "userLogin.rol != 'C'" class="form-group">
+          <label class="control-label col-sm-2" for="clbrId">Asignado a: </label>
+          <div class="col-sm-4">
+            <select name="clbrId" ng-model="filtro.clbrId" ng-options="colaborador.id as colaborador.nombre for colaborador in colaboradores" ></select>
+          </div>
+      </div>
         <div class="form-group">
             <div class="col-sm-6">
              <label for="pryId">Proyecto: </label>

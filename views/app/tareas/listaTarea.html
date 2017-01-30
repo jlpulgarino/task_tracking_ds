@@ -1,4 +1,33 @@
 <div data-ng-controller="listaTareasController">
+    <div ng-show = "userLogin.rol == 'C'">
+        <label >Tareas asignadas a : {{userLogin.nombre}}</label>
+    </div>
+    <!--<ng-form class="form-horizontal">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="clbrId">Asignado a: </label>
+          <div class="col-sm-4">
+            <select name="clbrId" ng-model="filtro.clbrId" ng-options="colaborador.id as colaborador.nombre for colaborador in colaboradores" ></select>
+          </div>
+      </div>
+        <div class="form-group">
+            <div class="col-sm-6">
+             <label for="pryId">Proyecto: </label>
+              <select name="pryId" ng-model="filtro.pryId" ng-options="proyecto.id as proyecto.nombre for proyecto in proyectos" >
+                  <option value="0">Todos</option>
+              </select>
+              <label  for="estadoTarea">Estado:</label>
+              <select name="estadoTarea" ng-model="filtro.estadoTarea">
+               <option value="T">Todos</option>
+               <option value="N">Nuevo</option>
+               <option value="C">Cerrado</option>
+               <option value="I">Inactivo</option>
+               <option value="P">En Proceso</option>
+             </select>
+             <button type="submit" class="btn btn-default" ng-click="refreshLista()">Ver Gantt</button>
+            </div>
+        </div>
+    </ng-form>
+</div>-->
     <tree-dnd
 		tree-class="table"
 		tree-data="tree_data"

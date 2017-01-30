@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-8">
         <rd-widget>
-            <rd-widget-header icon="fa-tasks" title="Estimacion Tarea"></rd-widget-header>
+            <rd-widget-header icon="fa-tasks" title="Planeacion Semana"></rd-widget-header>
             <rd-widget-body classes="large no-padding">
                 <div ng-controller="estimacionCtrl">
                     <ng-form class="form-horizontal" ng-action="#/listaTareas">
@@ -11,16 +11,23 @@
                                 <input disabled="true" bled type="text" class="form-control" ng-model="estimacion.id" id="id" placeholder="Id">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="control-label col-sm-2" for="fecha">Fecha:</label>
                             <div class="col-sm-3">
                                 <input bled type="date" class="form-control" ng-model="estimacion.fecha" id="fecha" placeholder="yyyy-MM-dd">
                             </div>
+                        </div>-->
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="semana">Semana:</label>
+                            <div class="col-sm-4">
+                                <input bled type="text" class="form-control" ng-model="estimacion.semana" id="semana" placeholder="Semana">
+                            </div>
+                            <label class="control-label col-sm-2" for="semana">(Semana Actual: {{estimacion.semana}})</label>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="porcentaje">Tiempo(horas):</label>
+                            <label class="control-label col-sm-2" for="horas">Tiempo(horas):</label>
                             <div class="col-sm-4">
-                                <input bled type="text" class="form-control" ng-model="estimacion.porcentaje" id="porcentaje" placeholder="%Tarea">
+                                <input bled type="text" class="form-control" ng-model="estimacion.horas" id="horas" placeholder="tiempo">
                             </div>
                         </div>
                         <div class="form-group">

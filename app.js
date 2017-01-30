@@ -9,6 +9,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 //Used for passport
+var flash    = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var moment = require('moment');
@@ -61,6 +62,7 @@ app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
+ require('./config/passport')(passport); // pass passport for configuration
 
 if (config.server.allowCORS) {
     var cors = require('cors');

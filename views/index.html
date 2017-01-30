@@ -38,6 +38,7 @@
   <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
   <script type="text/javascript" src="bower_components/moment/locale/es.js"></script>
 
+
   <!-- endbuild -->
   <!-- Custom Scripts -->
   <!--<script src="app/proyectos/Proyecto.js"></script>-->
@@ -64,35 +65,39 @@
   <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
 
     <!-- Sidebar -->
-    <div id="sidebar-wrapper">
+    <div ng-show="userLogin.id > 0 " id="sidebar-wrapper">
       <ul class="sidebar">
         <li class="sidebar-main">
           <a ng-click="toggleSidebar()">
-            Coltoys-Top_Promotions
+            Control Tareas
             <span class="menu-icon glyphicon glyphicon-transfer"></span>
           </a>
         </li>
-        <!--<li class="sidebar-title"><span>NAVEGACION</span></li>
-        <li class="sidebar-list">
-          <a href="#">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
-        </li>
-        <li class="sidebar-list">
+        <li class="sidebar-title"><span>NAVEGACION</span></li>
+        <!--<li class="sidebar-list">
+          <a href="#dashboard">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
+      </li>-->
+        <!--<li class="sidebar-list">
           <a href="#/tables">Tables <span class="menu-icon fa fa-table"></span></a>
       </li>-->
-      <li class="sidebar-list">
+      <li ng-show="userLogin.id > 0 && userLogin.rol !== 'C'"  class="sidebar-list">
         <a href="#/departamentos">Departamentos <span class="menu-icon fa fa-users"></span></a>
       </li>
-      <li class="sidebar-list">
+      <li ng-show="userLogin.id > 0 && userLogin.rol !== 'C'" class="sidebar-list">
         <a href="#/colaboradores">Colaboradores <span class="menu-icon fa fa-users"></span></a>
       </li>
-        <li class="sidebar-list">
+        <li ng-show="userLogin.id > 0 && userLogin.rol !== 'C'" class="sidebar-list">
           <a href="#/proyectos">Proyectos <span class="menu-icon fa fa-table"></span></a>
         </li>
+        <li class="divider"></li>
         <li class="sidebar-list">
           <a href="#/reportes/gantt">Gantt <span class="menu-icon fa fa-tasks"></span></a>
         </li>
         <li class="sidebar-list">
           <a href="#/reportes/listaTareas">Tareas <span class="menu-icon fa fa-tasks"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/reportes/listaTareaSemana">Reporte Tareas <span class="menu-icon fa fa-tasks"></span></a>
         </li>
       </ul>
       <div class="sidebar-footer">
@@ -119,37 +124,27 @@
       <div class="page-content">
 
         <!-- Header Bar -->
-        <div class="row header">
-          <div class="col-xs-12">
-            <div class="user pull-right">
+        <div  class="row header">
+          <div  class="col-xs-12">
+            <div ng-show="userLogin.id > 0 " class="user pull-right">
               <div class="item dropdown" uib-dropdown>
                 <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
                   <img src="img/avatar.jpg">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li class="dropdown-header">
-                    Joe Bloggs
+                    {{userLogin.nombre}}
                   </li>
                   <li class="divider"></li>
                   <li class="link">
                     <a href="#">
-                      Profile
-                    </a>
-                  </li>
-                  <li class="link">
-                    <a href="#">
-                      Menu Item
-                    </a>
-                  </li>
-                  <li class="link">
-                    <a href="#">
-                      Menu Item
+                      Cambiar contraseña
                     </a>
                   </li>
                   <li class="divider"></li>
                   <li class="link">
-                    <a href="#">
-                      Logout
+                    <a href="#/logout">
+                      Salir
                     </a>
                   </li>
                 </ul>
@@ -169,9 +164,9 @@
                 </ul>
               </div>
             </div>
-            <div class="meta">
+            <div  class="meta">
               <div class="page">
-                Dashboard
+                Coltoys - Top Promotions
               </div>
               <div class="breadcrumb-links">
                 Home / Dashboard

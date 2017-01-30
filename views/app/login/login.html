@@ -1,23 +1,59 @@
-<md-content class="md-padding" layout="row" layout-align="center center">
-    <md-card md-theme-watch flex-gt-sm="33" flex="66">
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">Ingreso</span>
-                <span class="md-subhead">Digite sus credenciales</span>
-            </md-card-title-text>
-        </md-card-title>
-        <section layout="column" layout-align="center center">
-            <md-input-container>
-                <label>Usuario</label>
-                <input ng-model="userLogin.username">
-            </md-input-container>
-            <md-input-container>
-                <label>Contraseña</label>
-                <input ng-model="userLogin.password" type="password">
-            </md-input-container>
-        </section>
-        <md-card-actions layout="column" layout-align="center">
-            <md-button ng-click="login(userLogin)">Ingresar</md-button>
-        </md-card-actions>
-    </md-card>
-</md-content>
+<div  align="center"  ng-controller="LoginCtrl">
+    <div>
+        <span class="md-headline">Ingreso</span>
+    </div>
+    <div>
+        <span class="md-subhead">Digite sus credenciales</span>
+    </div>
+    <ng-form class="form-horizontal" action="setLogin()" >
+        <div class="form-group"  >
+            <div class="col-sm-offset-5 col-sm-2">
+                <input bled type="text" class="form-control" ng-model="userLogin.username" id="username" placeholder="Usuario">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-5 col-sm-2">
+                <input bled  type="password" class="form-control" ng-model="userLogin.password" id="password" placeholder="Contraseña">
+            </div>
+        </div>
+        <div class="form-group" aling="center">
+            <div class="col-sm-offset-5 col-sm-1">
+                <button type="submit" class="btn btn-default" ng-click="login(userLogin)">Ingresar</button>
+            </div>
+        </div>
+    </ng-form>
+    <div class="col-sm-offset-3 col-xs-6">
+        <uib-alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+    </div>
+
+</div>
+
+<!--
+<div  align="center" data-ng-controller="LoginCtrl">
+    <md-content class="md-padding" layout="row" layout-align="center center">
+        <md-card md-theme-watch flex-gt-sm="33" flex="66">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Ingreso</span>
+                    <span class="md-subhead">Digite sus credenciales</span>
+                </md-card-title-text>
+            </md-card-title>
+            <section layout="column" layout-align="center center">
+                <md-input-container>
+                    <label>Usuario</label>
+                    <input ng-model="userLogin.username">
+                </md-input-container>
+            </section>
+            <section layout="column" layout-align="center center">
+                <md-input-container>
+                    <label>Contraseña</label>
+                    <input ng-model="userLogin.password" type="password">
+                </md-input-container>
+            </section>
+            <md-card-actions layout="column" layout-align="center">
+                <md-button ng-click="login(userLogin)">Ingresar</md-button>
+            </md-card-actions>
+        </md-card>
+    </md-content>
+</div>
+-->

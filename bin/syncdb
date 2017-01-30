@@ -21,6 +21,16 @@ function generateData() {
             nombre: "ProyectoA",
             descripcion: "Proyecto de Prueba"
         });
+    }).then(function() {
+        return db.Colaborador.create(  {
+            usuario: "tpulga",
+            nombre: "Tomas Pulgarin",
+            rol: "C",
+            cargo: "analista",
+            email: "tpulga@hotmail.com",
+            password: "tpulga",
+            DepartamentoId: 1
+        });
     });
 
 }

@@ -70,6 +70,7 @@ router.post('/', function(req, res, next) {
         fecini: data.get('fecini'),
         fecfin: data.get('fecfin'),
         estado: data.get('estado'),
+        horas: data.get('horas', 'Debe seleccionar un numero de horas.'),
         SubproyectoId: data.get('SubproyectoId', 'Debe seleccionar un Subproyecto.'),
         ColaboradorId: data.get('ColaboradorId', 'Debe seleccionar un Colaborador.')
     };
@@ -80,61 +81,4 @@ router.post('/', function(req, res, next) {
 
 });
 
-/**
- * MANEJO DE TAREAS
- */
- /*
-router.get('/:id/subproyectos/', function(req, res, next) {
-    var proyectoId = req.params.id;
-    var proyectoEmulado = db.Proyecto.build({
-        id: proyectoId
-    });
-    return proyectoEmulado.getSubproyectos().then(function(subproyectos) {
-        subproyectos.sort(function(a, b) {
-            return a.id - b.id;
-        });
-        res.send(subproyectos);
-    });
-});
-
-router.post('/:id/subproyectos/', function(req, res, next) {
-    var proyectoId = req.params.id;
-    var data = utils.getterFromPost(req);
-    var subproyecto = {
-        id: data.get('id'),
-        nombre: data.get('nombre', 'Debe seleccionar un nombre para el subproyecto.'),
-        descripcion: data.get('descripcion'),
-        DepartamentoId: data.get('DepartamentoId', 'Debe seleccionar un departamento.')
-    };
-
-
-    var proyectoEmulado = db.Proyecto.build({
-        id: proyectoId
-    });
-    var subproyectoCreado;
-    return db.Subproyecto.save(subproyecto).then(function(subproyectoCreatedP) {
-        subproyectoCreado = subproyectoCreatedP;
-        return subproyectoCreado;
-    }).then(function() {
-        console.log('proyecto[' + proyectoEmulado.id + '], subproyectoCreado.id=' + subproyectoCreado.id);
-        return proyectoEmulado.addSubproyecto(subproyectoCreado.id, subproyectoCreado);
-    }).then(function() {
-        res.send(subproyectoCreado);
-    }).catch(next);
-});
-
-router.delete('/:proyectoId/subproyectos/:id', function(req, res, next) {
-    var proyectoId = req.params.proyectoId;
-    var subproyectoId = req.params.id;
-    var subproyecto = db.Subproyecto.build({
-        id: subproyectoId
-    });
-
-    subproyecto.destroy().then(function() {
-        return res.send('OK');
-    }).catch(next);
-
-});
-
-*/
 module.exports = router;
