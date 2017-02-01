@@ -47,6 +47,24 @@ router.get('/filtro/:parm', function(req, res, next) {
     }).catch(next);
 });
 
+router.get('/departamento/:idDepto', function(req, res, next) {
+    var rangoDepto = [0,999999];
+    var deptoId = parseInt(req.params.idDepto);
+    if(deptoId > 0 ){
+        rangoDepto[0]=deptoId;
+        rangoDepto[1]=deptoId;
+    }
+    db.Colaborador.findAll({
+        where: {
+            DepartamentoId: {
+                $between: rangoDepto
+            }
+        }
+    }).then(function(resp) {
+        return res.send(resp);
+    }).catch(next);
+});
+
 
 /**
  * Define el comportamiento de un Get enviado a la ruta 'proyecto/:id' para obtener Todos los proyectos
