@@ -141,11 +141,13 @@ router.get('/:id/tareas/:filtro', function(req, res, next) {
     var rangoProyecto = [0,999999999];
     var rangoSubproyecto = [0,999999999];
     var rangoColaborador = [0,999999999];
+    var rangoDepartamento = [0,999999999];
     var filtro = req.params.filtro;
     var camposFiltro = filtro.split('_');
     var filtroPry = camposFiltro[0];
     var filtroSbpry = parseInt(camposFiltro[1]);
     var filtroTarea = camposFiltro[2];
+    var filtroDepto = parseInt(camposFiltro[3]);
     if(req.params.id > 0){
         rangoColaborador[0] = req.params.id;
         rangoColaborador[1] = req.params.id;
@@ -160,6 +162,10 @@ router.get('/:id/tareas/:filtro', function(req, res, next) {
     if(filtroPry > 0){
         rangoProyecto[0] = filtroPry;
         rangoProyecto[1] = filtroPry;
+    }
+    if(filtroDepto > 0){
+        rangoDepartamento[0] = filtroDepto;
+        rangoDepartamento[1] = filtroDepto;
     }
 
 
@@ -178,23 +184,36 @@ router.get('/:id/tareas/:filtro', function(req, res, next) {
                     include: [
                         {
                             model: db.Proyecto,
-                            where: {id: {
+                            where:
+                            {id: {
                                 $between: rangoProyecto
                             }}
                         }
                     ],
-                      where: {id: {
-                          $between: rangoSubproyecto
-                      }}
+                    where: {
+                        $and: [
+                        {id: {
+                            $between: rangoSubproyecto
+                        }},
+                        {DepartamentoId: {
+                            $between: rangoDepartamento
+                        }}
+                    ]}
                 }
             ],
             where: {estado:{
               $like: filtroTarea
             }}
         }],
-		where: {id: {
-			$between: rangoColaborador
-        }}
+        where: {
+            $and: [
+            {id: {
+    			$between: rangoColaborador
+            }},
+            {DepartamentoId: {
+                $between: rangoDepartamento
+            }}
+        ]}
 	}).then(function(colaborares){
 		return colaborares;
 	}).then(colaboradores => {

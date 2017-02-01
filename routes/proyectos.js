@@ -98,11 +98,13 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
     var rangoProyecto = [0,999999999];
     var rangoSubproyecto = [0,999999999];
     var rangoColaborador = [0,999999999];
+    var rangoDepartamento = [0,999999999];
     var filtro = req.params.filtro;
     var camposFiltro = filtro.split('_');
     var filtroColb = camposFiltro[0];
     var filtroSbpry = parseInt(camposFiltro[1]);
     var filtroTarea = camposFiltro[2];
+    var filtroDepto = parseInt(camposFiltro[3]);
     if(req.params.id > 0){
         rangoProyecto[0] = req.params.id;
         rangoProyecto[1] = req.params.id;
@@ -118,7 +120,10 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
         rangoColaborador[0] = filtroColb;
         rangoColaborador[1] = filtroColb;
     }
-
+    if(filtroDepto > 0){
+        rangoDepartamento[0] = filtroDepto;
+        rangoDepartamento[1] = filtroDepto;
+    }
     db.Proyecto.findAll({
     include: [{
         model: db.Subproyecto,
@@ -144,9 +149,15 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
               }}
             }
           ],
-          where: {id: {
-              $between: rangoSubproyecto
-          }}
+          where: {
+              $and: [
+              {id: {
+                  $between: rangoSubproyecto
+              }},
+              {DepartamentoId: {
+                  $between: rangoDepartamento
+              }}
+          ]}
     }],
     where: {id: {
         $between: rangoProyecto
