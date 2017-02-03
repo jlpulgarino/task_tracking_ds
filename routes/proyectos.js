@@ -163,7 +163,6 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
         $between: rangoProyecto
     }}
 }).then(function(proyectos){
-    console.log(proyectos);
     return proyectos;
 }).then(proyectos => {
       const resObj = proyectos.map(proyecto => {

@@ -5,6 +5,12 @@
             <rd-widget-body classes="large no-padding">
                 <div ng-controller="editTareasCtrl">
                     <ng-form class="form-horizontal" ng-action="#/tareas">
+                        <div ng-show = "rol == 'C'" class="form-group">
+                          <label class="control-label col-sm-2" for="SubproyectoId">Subproyecto: </label>
+                          <div class="col-sm-4">
+                            <select name="SubproyectoId" ng-model="tarea.SubproyectoId" ng-options="subproyecto.id as subproyecto.nombre for subproyecto in subproyectos" ></select>
+                          </div>
+                      </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="id">Id:</label>
                             <div class="col-sm-4">

@@ -1,5 +1,18 @@
 
 <div data-ng-controller="listaTareasSemController">
+    <ng-form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <label  ng-show = "userLogin.rol != 'C'" class="control-label" for="clbrId">Colaborador: </label>
+                <select  ng-show = "userLogin.rol != 'C'" bled name="clbrId" ng-model="filtro.clbrId" ng-options="colaborador.id as colaborador.nombre for colaborador in colaboradores" placeholder="Colaborador"></select>
+             <label for="pryId">Proyecto: </label>
+              <select name="pryId" ng-model="filtro.pryId" ng-options="proyecto.id as proyecto.nombre for proyecto in proyectos" >
+                  <option value="0">Todos</option>
+              </select>
+             <button type="submit" class="btn btn-default btn-sm" ng-click="refreshTareas()">Ver Tareas</button>
+            </div>
+        </div>
+    </ng-form>
     <tree-dnd
 		tree-class="table"
 		tree-data="tree_data"

@@ -22,6 +22,29 @@ router.get('/', function(req, res, next) {
     }).catch(next);
 });
 
+router.get('/departamento/:id', function(req, res, next) {
+    var filtroDepto = parseInt(req.params.id);
+    var rangoDepartamento = [0,999999999];
+
+    if(filtroDepto > 0){
+        rangoDepartamento[0] = filtroDepto;
+        rangoDepartamento[1] = filtroDepto;
+    }
+
+    db.Subproyecto.findAll({
+        include: [{
+            model: db.Proyecto
+        }],
+        where: {
+            DepartamentoId: {
+                        $between: rangoDepartamento
+                }}
+    }).then(function(resp) {
+        return res.send(resp);
+    }).catch(next);
+});
+
+
 /**
  * Define el comportamiento de un Get enviado a la ruta 'proyecto/:id' para obtener Todos los proyectos
  * filtrados por nombre o descripcion.
