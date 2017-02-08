@@ -142,12 +142,19 @@ router.get('/:id/tareas/:filtro', function(req, res, next) {
     var rangoSubproyecto = [0,999999999];
     var rangoColaborador = [0,999999999];
     var rangoDepartamento = [0,999999999];
+    var rangoSemana = [0,999999999];
     var filtro = req.params.filtro;
     var camposFiltro = filtro.split('_');
     var filtroPry = camposFiltro[0];
     var filtroSbpry = parseInt(camposFiltro[1]);
     var filtroTarea = camposFiltro[2];
     var filtroDepto = parseInt(camposFiltro[3]);
+    var filtroSemana = parseInt(camposFiltro[4]);
+
+    if(filtroSemana > 0){
+        rangoSemana[0] = filtroSemana;
+        rangoSemana[1] = filtroSemana;
+    }
     if(req.params.id > 0){
         rangoColaborador[0] = req.params.id;
         rangoColaborador[1] = req.params.id;
@@ -177,7 +184,11 @@ router.get('/:id/tareas/:filtro', function(req, res, next) {
                     model: db.Registro
                 },
                 {
-                    model: db.Estimacion
+                    model: db.Estimacion,
+                    where:
+                    {semana: {
+                        $between: rangoSemana
+                    }}
                 },
                 {
                     model: db.Subproyecto,

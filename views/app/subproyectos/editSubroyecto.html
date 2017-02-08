@@ -63,7 +63,7 @@
                      <th>Descripcion</th>
                      <th><span ng-class='text-success' ><i class="glyphicon glyphicon-edit" ></i></span></th>
                      <th><a ng-href="#/tareas/edit" ng-click="addTarea()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></th>
-                     <th><span ><i class="glyphicon glyphicon-minus" ></i></span></th></tr>
+                     <!--<th><span ><i class="glyphicon glyphicon-minus" ></i></span></th></tr>-->
              </thead>
            <tbody>
              <tr ng-repeat="tarea in tareas">
@@ -73,7 +73,7 @@
                  <td>{{tarea.descripcion}}</td>
                  <td><a ng-href="#/tareas/edit" ng-click="editTarea(tarea)" ><span ng-class="{'text-success':proyecto.estado == 'N'}" ><i class="glyphicon glyphicon-edit" ></i></span></a></td>
                  <td><a ng-href="#/tareas/edit" ng-click="addTarea()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></td>
-                 <td><a ng-click="delTarea($event,tarea)" ><span ><i class="glyphicon glyphicon-minus" ></i></span></a></td>
+                 <!--<td><a ng-click="delTarea($event,tarea)" ><span ><i class="glyphicon glyphicon-minus" ></i></span></a></td>-->
              </tr>
            </tbody>
          </table>

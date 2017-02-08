@@ -59,7 +59,7 @@
                            <th>Descripcion</th>
                            <th><span ng-class='text-success' ><i class="glyphicon glyphicon-edit" ></i></span></th>
                            <th><a ng-href="#/subproyectos/edit" ng-click="addSubroyecto()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></th>
-                           <th><span ><i class="glyphicon glyphicon-minus" ></i></span></th></tr>
+                           <!--<th><span ><i class="glyphicon glyphicon-minus" ></i></span></th></tr>-->
                    </thead>
                  <tbody>
                    <!--<tr ng-repeat="proyecto in proyectos"><td><span ng-class="{'text-success':proyecto.estado == 'N'}"><i class="fa fa-flag"></i></span></td><td>{{proyecto.id}}</td><td>{{proyecto.nombre}}</td><td>{{proyecto.descripcion}}</td><td><button type="button" class="btn btn-default" ng-click="editProyecto(proyecto)" ><span ng-class="{'text-success':proyecto.estado == 'N'}" ><i class="glyphicon glyphicon-edit" ><</i></span></button></td></tr>-->
@@ -70,7 +70,7 @@
                        <td>{{subproyecto.descripcion}}</td>
                        <td><a ng-href="#/subproyectos/edit" ng-click="editSubroyecto(subproyecto)" ><span ng-class="{'text-success':proyecto.estado == 'N'}" ><i class="glyphicon glyphicon-edit" ></i></span></a></td>
                        <td><a ng-href="#/subproyectos/edit" ng-click="addSubroyecto()" ><span ng-class='text-success'><i class="glyphicon glyphicon-plus" ></i></span></a></td>
-                       <td><a ng-click="delSubroyecto($event,subproyecto)" ><span ><i class="glyphicon glyphicon-minus" ></i></span></a></td>
+                       <!--<td><a ng-click="delSubroyecto($event,subproyecto)" ><span ><i class="glyphicon glyphicon-minus" ></i></span></a></td>-->
                    </tr>
                  </tbody>
                </table>
