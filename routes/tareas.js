@@ -4,6 +4,7 @@ var db = require('../models');
 var Promise = require('bluebird');
 var express = require('express');
 var router = express.Router();
+var moment = require('moment');
 
 /**
  * Define el comportamiento de un Get enviado a la ruta 'proyecto/:id' para obtener un proyecto particular
@@ -80,5 +81,51 @@ router.post('/', function(req, res, next) {
     }).catch(next);
 
 });
+
+router.get('/:id/estimaciones/:semana', function(req, res, next) {
+    db.Tarea.findAll({
+		include: [{
+			model: db.Estimacion,
+			where: {
+				semana: req.params.semana
+				}
+        }],
+        where: {
+			id: req.params.id
+            }
+	}).then(function(tareas){
+		return tareas;
+	}).then(tareas => {
+		const resObj = tareas.map(tarea =>  {
+			return Object.assign(
+				{},
+				{
+					id: tarea.id,
+					nombre: tarea.nombre,
+					estado: tarea.estado,
+					horas: tarea.horas,
+					fecini: moment(new Date(tarea.fecini)).format("YYYY-MM-DD"),
+					fecfin: moment(new Date(tarea.fecfin)).format("YYYY-MM-DD"),
+					estimaciones: tarea.Estimacions.map(estimacion => {
+						return Object.assign(
+						  {},
+						  {
+							  id: estimacion.id,
+							  semana: estimacion.semana,
+							  horas: estimacion.horas,
+							  TareaId: tarea.id
+						  })
+					}),
+					subproyecto: tarea.Subproyecto
+				}
+			)
+		})
+        //res.send(tareas)
+        res.send(resObj);
+	}).catch(next);
+
+});
+
+
 
 module.exports = router;

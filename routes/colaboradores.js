@@ -244,6 +244,7 @@ router.get('/:id/tareas/:filtro', function(req, res, next) {
                                 horas: tarea.horas,
                                 fecini: moment(new Date(tarea.fecini)).format("YYYY-MM-DD"),
                                 fecfin: moment(new Date(tarea.fecfin)).format("YYYY-MM-DD"),
+                                descripcion: tarea.descripcion,
                                 registros: tarea.Registros.map(registro => {
                                     return Object.assign(
                                       {},

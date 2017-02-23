@@ -194,7 +194,9 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
                             fecini: moment(new Date(tarea.fecini)).format("YYYY-MM-DD"),
                             fecfin: moment(new Date(tarea.fecfin)).format("YYYY-MM-DD"),
                             dias: moment(new Date(tarea.fecfin)).diff(moment(new Date(tarea.fecini)), 'days'),
+                            semana: moment(new Date(tarea.updatedAt)).week(),
                             colaborador: tarea.Colaborador,
+                            descripcion: tarea.descripcion,
                             registros: tarea.Registros.map(registro => {
                                 return Object.assign(
                                   {},
