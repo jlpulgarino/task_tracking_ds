@@ -101,6 +101,7 @@
         <li class="sidebar-list">
           <a href="#/reportes/listaTareaSemana">Reporte Tareas <span class="menu-icon fa fa-tasks"></span></a>
         </li>
+        <li ng-show="userLogin.id > 0 && userLogin.rol !== 'C'"  class="sidebar-list">
           <a href="api/reportes/1">Reporte Excel <span class="menu-icon fa fa-tasks"></span></a>
         </li>
       </ul>
