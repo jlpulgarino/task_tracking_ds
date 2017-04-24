@@ -143,7 +143,19 @@ router.get('/', function(req, res, next) {
 /**
  * Define el comportamiento de un Get enviado a la ruta 'proyecto/:id' para obtener un proyecto particular
  */
-router.get('/:id', function(req, res, next) {
+router.get('/rptAll/:filtro', function(req, res, next) {
+
+var rangoDepartamento = [0,999999999];
+    var filtro = req.params.filtro;
+    var camposFiltro = filtro.split('_');
+    var filtroDepto = parseInt(camposFiltro[0]);
+    var filtroSemIni = parseInt(camposFiltro[1]);
+    var filtroSemFin = parseInt(camposFiltro[2]);
+    if(filtroDepto > 0){
+        rangoDepartamento[0] = filtroDepto;
+        rangoDepartamento[1] = filtroDepto;
+    }
+
 
     var styles = {
         headerDark: {
@@ -188,6 +200,11 @@ router.get('/:id', function(req, res, next) {
             headerStyle: styles.headerDark,
             width: '50'
         },
+        DepartamentoId: {
+            displayName: 'Departmento',
+            headerStyle: styles.headerDark,
+            width: '15'
+        },
         subproyectoid: {
             displayName: 'IdSubproyecto',
             headerStyle: styles.headerDark,
@@ -213,6 +230,11 @@ router.get('/:id', function(req, res, next) {
             headerStyle: styles.headerDark,
             width: '10'
         },
+        nom_colb: {
+            displayName: 'Colaborador',
+            headerStyle: styles.headerDark,
+            width: '15'
+        },
         estimado: {
             displayName: 'H/Estimadas',
             headerStyle: styles.headerDark,
@@ -237,7 +259,8 @@ router.get('/:id', function(req, res, next) {
 
 
     var dataset = [];
-    db.sequelize.query('SELECT * FROM public.tareasvw').then(function(resp) {
+    db.sequelize.query('SELECT * FROM public.tareasvw where  "DepartamentoId" between :depto1 and :depto2 and semana between :sem1 and :sem2 ',
+    { replacements: { depto1: rangoDepartamento[0], depto2:rangoDepartamento[1], sem1: filtroSemIni , sem2: filtroSemFin }}).then(function(resp) {
         if (resp.length > 0) {
             dataset = resp[0];
         }
@@ -260,6 +283,213 @@ router.get('/:id', function(req, res, next) {
 
 
 });
+
+/**
+ * Define el comportamiento de un Get enviado a la ruta 'proyecto/:id' para obtener un proyecto particular
+ */
+router.get('/rptCerr/:filtro', function(req, res, next) {
+
+    var filtro = req.params.filtro;
+    var camposFiltro = filtro.split('_');
+    var filtroSemIni = parseInt(camposFiltro[0]);
+    var filtroSemFin = parseInt(camposFiltro[1]);
+
+    var styles = {
+        headerDark: {
+            fill: {
+                fgColor: {
+                    rgb: 'FF000000'
+                }
+            },
+            font: {
+                color: {
+                    rgb: 'FFFFFFFF'
+                },
+                sz: 14,
+                bold: true,
+                underline: true
+            }
+        },
+        cellPink: {
+            fill: {
+                fgColor: {
+                    rgb: 'FFFFCCFF'
+                }
+            }
+        },
+        cellGreen: {
+            fill: {
+                fgColor: {
+                    rgb: 'FF00FF00'
+                }
+            }
+        }
+    };
+
+    var specification = {
+        proyectoid: {
+            displayName: 'IdProyecto',
+            headerStyle: styles.headerDark,
+            width: '15' // <- width in pixels
+        },
+        nombre: {
+            displayName: 'NomProyecto',
+            headerStyle: styles.headerDark,
+            width: '50'
+        },
+        semana: {
+            displayName: 'Semana',
+            headerStyle: styles.headerDark,
+            width: '10'
+        },
+        totalpry: {
+            displayName: 'Tot.Tareas Proyecto',
+            headerStyle: styles.headerDark,
+            width: '15'
+        },
+        nom_colb: {
+            displayName: 'Colaborador',
+            headerStyle: styles.headerDark,
+            width: '15'
+        },
+        totalclb: {
+            displayName: 'Tot.Tareas Colaborador',
+            headerStyle: styles.headerDark,
+            width: '15'
+        }
+    }
+
+
+    var dataset = [];
+    db.sequelize.query('SELECT * FROM public.tareascerradasvw where  semana between :sem1 and :sem2 ',
+    { replacements: { sem1: filtroSemIni , sem2: filtroSemFin }}).then(function(resp) {
+        if (resp.length > 0) {
+            dataset = resp[0];
+        }
+        var report = excel.buildExport(
+            [ // <- Notice that this is an array. Pass multiple sheets to create multi sheet report
+                {
+                    name: 'Tareas', // <- Specify sheet name (optional)
+                    //heading: heading, // <- Raw heading array (optional)
+                    specification: specification, // <- Report specification
+                    data: dataset // <-- Report data
+                }
+            ]
+        );
+
+        // You can then return this straight
+        res.attachment('tareasRpt.xlsx'); // This is sails.js specific (in general you need to set headers)
+        return res.send(report);
+        //return res.send(dataset);
+    });
+
+
+});
+
+
+/**
+ * Define el comportamiento de un Get enviado a la ruta 'proyecto/:id' para obtener un proyecto particular
+ */
+router.get('/rptPlnd/:filtro', function(req, res, next) {
+
+    var filtro = req.params.filtro;
+    var camposFiltro = filtro.split('_');
+    var filtroSemIni = parseInt(camposFiltro[0]);
+    var filtroSemFin = parseInt(camposFiltro[1]);
+
+    var styles = {
+        headerDark: {
+            fill: {
+                fgColor: {
+                    rgb: 'FF000000'
+                }
+            },
+            font: {
+                color: {
+                    rgb: 'FFFFFFFF'
+                },
+                sz: 14,
+                bold: true,
+                underline: true
+            }
+        },
+        cellPink: {
+            fill: {
+                fgColor: {
+                    rgb: 'FFFFCCFF'
+                }
+            }
+        },
+        cellGreen: {
+            fill: {
+                fgColor: {
+                    rgb: 'FF00FF00'
+                }
+            }
+        }
+    };
+
+    var specification = {
+        proyectoid: {
+            displayName: 'IdProyecto',
+            headerStyle: styles.headerDark,
+            width: '15' // <- width in pixels
+        },
+        nombre: {
+            displayName: 'NomProyecto',
+            headerStyle: styles.headerDark,
+            width: '50'
+        },
+        semana: {
+            displayName: 'Semana',
+            headerStyle: styles.headerDark,
+            width: '10'
+        },
+        totalpry: {
+            displayName: 'Tot.Tareas Proyecto',
+            headerStyle: styles.headerDark,
+            width: '15'
+        },
+        nom_colb: {
+            displayName: 'Colaborador',
+            headerStyle: styles.headerDark,
+            width: '15'
+        },
+        totalclb: {
+            displayName: 'Tot.Tareas Colaborador',
+            headerStyle: styles.headerDark,
+            width: '15'
+        }
+    }
+
+
+    var dataset = [];
+    db.sequelize.query('SELECT * FROM public.tareasplaneadasvw where  semana between :sem1 and :sem2 ',
+    { replacements: { sem1: filtroSemIni , sem2: filtroSemFin }}).then(function(resp) {
+        if (resp.length > 0) {
+            dataset = resp[0];
+        }
+        var report = excel.buildExport(
+            [ // <- Notice that this is an array. Pass multiple sheets to create multi sheet report
+                {
+                    name: 'Tareas', // <- Specify sheet name (optional)
+                    //heading: heading, // <- Raw heading array (optional)
+                    specification: specification, // <- Report specification
+                    data: dataset // <-- Report data
+                }
+            ]
+        );
+
+        // You can then return this straight
+        res.attachment('tareasRpt.xlsx'); // This is sails.js specific (in general you need to set headers)
+        return res.send(report);
+        //return res.send(dataset);
+    });
+
+
+});
+
+
 
 /**
  * Define el comportamiento de un Get enviado a la ruta 'proyecto/:id' para obtener Todos los proyectos

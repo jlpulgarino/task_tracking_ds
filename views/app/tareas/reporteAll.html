@@ -1,0 +1,28 @@
+<div data-ng-controller="reportesCtrl">
+    <div >
+        <label >Tareas Semanales</label>
+    </div>
+    <ng-form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <label  class="control-label" for="semIni">Desde Semana: </label>
+                <select  bled name="clbrId" ng-model="filtro.semIni" ng-options="semana.id as semana.label for semana in semanas" placeholder="Semana inicial"></select>
+                <label  class="control-label" for="semFin"> Hasta Semana: </label>
+                <select  bled name="clbrId" ng-model="filtro.semFin" ng-options="semana.id as semana.label for semana in semanas" placeholder="Semana final"></select>
+             <button type="submit" class="btn btn-default btn-sm" ng-click="generarReporte()">Ver Tareas</button>
+            </div>
+        </div>
+    </ng-form>
+    <div ng-show="urlRpt" class="col-xs-4">
+      <!--<button type="button" class="btn btn-default" ng-click={{urlRpt}}>Descargar</button>-->
+      <a ng-href={{urlRpt}} target="_blank">Descargar Reporte Detallado</a>
+    </div>
+    <div ng-show="urlRptCrr" class="col-xs-4">
+      <!--<button type="button" class="btn btn-default" ng-click={{urlRpt}}>Descargar</button>-->
+      <a ng-href={{urlRptCrr}} target="_blank">Descargar Reporte Total tareas cerradas</a>
+    </div>
+    <div ng-show="urlRptPln" class="col-xs-4">
+      <!--<button type="button" class="btn btn-default" ng-click={{urlRpt}}>Descargar</button>-->
+      <a ng-href={{urlRptPln}} target="_blank">Descargar Reporte Total tareas planeadas</a>
+    </div>
+</div>
