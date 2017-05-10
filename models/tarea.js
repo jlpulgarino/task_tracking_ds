@@ -54,6 +54,7 @@ module.exports = function(sequelize, DataTypes) {
                 db.Tarea.belongsTo(db.Colaborador);
                 db.Tarea.hasMany(db.Registro);
                 db.Tarea.hasMany(db.Estimacion);
+                db.Tarea.hasMany(db.Nota);
             },
             save: function(model) {
                 return db.Tarea.findById(model.id).then(function(modelAnt) {
