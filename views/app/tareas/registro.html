@@ -1,9 +1,10 @@
-<div class="row">
+<div class="row" ng-controller="registroCtrl">
     <div class="col-lg-8">
         <rd-widget>
-            <rd-widget-header icon="fa-tasks" title="Registro de tiempo trabajado"></rd-widget-header>
+            <rd-widget-header icon="fa-tasks" title="Registro de tiempo trabajado">
+            </rd-widget-header>
             <rd-widget-body classes="large no-padding">
-                <div ng-controller="registroCtrl">
+                <div >
                     <ng-form class="form-horizontal" ng-action="#/listaTareas">
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="id">Id:</label>
@@ -38,6 +39,9 @@
                             </div>
                         </div>
                     </ng-form>
+                    <div class="col-sm-6">
+                        <uib-alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                    </div>
                 </div>
             </rd-widget-body>
         </rd-widget>
