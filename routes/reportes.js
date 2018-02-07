@@ -149,8 +149,9 @@ var rangoDepartamento = [0,999999999];
     var filtro = req.params.filtro;
     var camposFiltro = filtro.split('_');
     var filtroDepto = parseInt(camposFiltro[0]);
-    var filtroSemIni = parseInt(camposFiltro[1]);
-    var filtroSemFin = parseInt(camposFiltro[2]);
+    var filtroAnio = parseInt(camposFiltro[1]);
+    var filtroSemIni = parseInt(camposFiltro[2]);
+    var filtroSemFin = parseInt(camposFiltro[3]);
     if(filtroDepto > 0){
         rangoDepartamento[0] = filtroDepto;
         rangoDepartamento[1] = filtroDepto;
@@ -240,6 +241,11 @@ var rangoDepartamento = [0,999999999];
             headerStyle: styles.headerDark,
             width: '12'
         },
+        anio: {
+            displayName: 'Año',
+            headerStyle: styles.headerDark,
+            width: '10'
+        },
         semana: {
             displayName: 'Semana',
             headerStyle: styles.headerDark,
@@ -259,8 +265,8 @@ var rangoDepartamento = [0,999999999];
 
 
     var dataset = [];
-    db.sequelize.query('SELECT * FROM public.tareasvw where  "DepartamentoId" between :depto1 and :depto2 and semana between :sem1 and :sem2 ',
-    { replacements: { depto1: rangoDepartamento[0], depto2:rangoDepartamento[1], sem1: filtroSemIni , sem2: filtroSemFin }}).then(function(resp) {
+    db.sequelize.query('SELECT * FROM public.tareasvw where  "DepartamentoId" between :depto1 and :depto2 and anio = :anioP and semana between :sem1 and :sem2 ',
+    { replacements: { depto1: rangoDepartamento[0], depto2:rangoDepartamento[1], anioP: filtroAnio, sem1: filtroSemIni , sem2: filtroSemFin }}).then(function(resp) {
         if (resp.length > 0) {
             dataset = resp[0];
         }
@@ -291,8 +297,9 @@ router.get('/rptCerr/:filtro', function(req, res, next) {
 
     var filtro = req.params.filtro;
     var camposFiltro = filtro.split('_');
-    var filtroSemIni = parseInt(camposFiltro[0]);
-    var filtroSemFin = parseInt(camposFiltro[1]);
+    var filtroAnio = parseInt(camposFiltro[0]);
+    var filtroSemIni = parseInt(camposFiltro[1]);
+    var filtroSemFin = parseInt(camposFiltro[2]);
 
     var styles = {
         headerDark: {
@@ -337,6 +344,11 @@ router.get('/rptCerr/:filtro', function(req, res, next) {
             headerStyle: styles.headerDark,
             width: '50'
         },
+        anio: {
+            displayName: 'Año',
+            headerStyle: styles.headerDark,
+            width: '10'
+        },
         semana: {
             displayName: 'Semana',
             headerStyle: styles.headerDark,
@@ -361,8 +373,8 @@ router.get('/rptCerr/:filtro', function(req, res, next) {
 
 
     var dataset = [];
-    db.sequelize.query('SELECT * FROM public.tareascerradasvw where  semana between :sem1 and :sem2 ',
-    { replacements: { sem1: filtroSemIni , sem2: filtroSemFin }}).then(function(resp) {
+    db.sequelize.query('SELECT * FROM public.tareascerradasvw where anio = :anioP and semana between :sem1 and :sem2 ',
+    { replacements: { anioP: filtroAnio , sem1: filtroSemIni , sem2: filtroSemFin }}).then(function(resp) {
         if (resp.length > 0) {
             dataset = resp[0];
         }
@@ -394,8 +406,9 @@ router.get('/rptPlnd/:filtro', function(req, res, next) {
 
     var filtro = req.params.filtro;
     var camposFiltro = filtro.split('_');
-    var filtroSemIni = parseInt(camposFiltro[0]);
-    var filtroSemFin = parseInt(camposFiltro[1]);
+    var filtroAnio = parseInt(camposFiltro[0]);
+    var filtroSemIni = parseInt(camposFiltro[1]);
+    var filtroSemFin = parseInt(camposFiltro[2]);
 
     var styles = {
         headerDark: {
@@ -440,6 +453,11 @@ router.get('/rptPlnd/:filtro', function(req, res, next) {
             headerStyle: styles.headerDark,
             width: '50'
         },
+        anio: {
+            displayName: 'Año',
+            headerStyle: styles.headerDark,
+            width: '10'
+        },
         semana: {
             displayName: 'Semana',
             headerStyle: styles.headerDark,
@@ -464,8 +482,8 @@ router.get('/rptPlnd/:filtro', function(req, res, next) {
 
 
     var dataset = [];
-    db.sequelize.query('SELECT * FROM public.tareasplaneadasvw where  semana between :sem1 and :sem2 ',
-    { replacements: { sem1: filtroSemIni , sem2: filtroSemFin }}).then(function(resp) {
+    db.sequelize.query('SELECT * FROM public.tareasplaneadasvw where anio = :anioP and semana between :sem1 and :sem2 ',
+    { replacements: { anioP: filtroAnio , sem1: filtroSemIni , sem2: filtroSemFin }}).then(function(resp) {
         if (resp.length > 0) {
             dataset = resp[0];
         }
@@ -550,7 +568,7 @@ router.post('/', function(req, res, next) {
 
 });
 
-router.get('/:id/estimaciones/:semana', function(req, res, next) {
+router.get('/:id/estimaciones/:anio/:semana', function(req, res, next) {
     db.Tarea.findAll({
         include: [{
             model: db.Estimacion,

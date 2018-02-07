@@ -82,12 +82,15 @@ router.post('/', function(req, res, next) {
 
 });
 
-router.get('/:id/estimaciones/:semana', function(req, res, next) {
+router.get('/:id/estimaciones/:anio/:semana', function(req, res, next) {
     db.Tarea.findAll({
 		include: [{
 			model: db.Estimacion,
 			where: {
-				semana: req.params.semana
+        $and: [
+        {semana: req.params.semana},
+        {anio: req.params.anio}
+        ]
 				}
         }],
         where: {
@@ -112,6 +115,7 @@ router.get('/:id/estimaciones/:semana', function(req, res, next) {
 						  {
 							  id: estimacion.id,
 							  semana: estimacion.semana,
+                anio: estimacion.anio,
 							  horas: estimacion.horas,
 							  TareaId: tarea.id
 						  })

@@ -195,6 +195,7 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
                             fecfin: moment(new Date(tarea.fecfin)).format("YYYY-MM-DD"),
                             dias: moment(new Date(tarea.fecfin)).diff(moment(new Date(tarea.fecini)), 'days'),
                             semana: moment(new Date(tarea.updatedAt)).week(),
+                            anio: moment(new Date(tarea.updatedAt)).year(),
                             colaborador: tarea.Colaborador,
                             descripcion: tarea.descripcion,
                             registros: tarea.Registros.map(registro => {
@@ -204,6 +205,7 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
                                       id: registro.id,
                                       fecha: moment(new Date(registro.fecha)).format("YYYY-MM-DD"),
                                       semana: moment(new Date(registro.fecha)).week(),
+                                      anio: moment(new Date(registro.fecha)).year(),
                                       horas: registro.horas
                                   })
                             }),
@@ -213,7 +215,8 @@ router.get('/:id/gantt/:filtro', function(req, res, next) {
                                   {
                                       id: estimacion.id,
                                       semana: estimacion.semana,
-                                      horas: estimacion.horas
+                                      horas: estimacion.horas,
+                                      anio: estimacion.anio
                                   })
                             })
                           }

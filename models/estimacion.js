@@ -20,6 +20,11 @@ module.exports = function(sequelize, DataTypes) {
             field: 'semana',
             allowNull: false
         },
+        anio: {
+            type: DataTypes.INTEGER,
+            field: 'anio',
+            allowNull: false
+        },
         horas: {
             type: DataTypes.INTEGER,
             field: 'horas',

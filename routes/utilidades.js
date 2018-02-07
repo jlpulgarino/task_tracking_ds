@@ -10,8 +10,10 @@ router.get('/semana/:fechaNum', function(req, res, next) {
     var fecNum = parseInt(req.params.fechaNum);
     console.log(new Date(fecNum));
     var weeknumber = moment(new Date(fecNum)).isoWeek();
+    var yearnumber = moment(new Date(fecNum)).year();
     var resp={
-        semana: weeknumber
+        semana: weeknumber,
+        anio: yearnumber
     };
     res.send(resp);
 });
@@ -25,9 +27,9 @@ router.get('/semanas', function(req, res, next) {
     });
 });
 
-router.get('/semanas/:id', function(req, res, next) {
-    db.sequelize.query('SELECT * FROM public.semanasvw where semana = :semana',
-    { replacements: {semana: req.params.id}}).then(function(resp) {
+router.get('/semanas/:anio/:id', function(req, res, next) {
+    db.sequelize.query('SELECT * FROM public.semanasvw where anio = :anioP and semana = :semana',
+    { replacements: {anioP: req.params.anio , semana: req.params.id}}).then(function(resp) {
             if (resp.length > 0) {
                 dataset = resp[0];
             }

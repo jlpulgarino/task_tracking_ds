@@ -67,7 +67,8 @@ router.post('/', function(req, res, next) {
         id: data.get('id'),
         semana: data.get('semana', 'Debe seleccionar una semana.'),
         horas: data.get('horas', 'Debe indicar numero de horas.'),
-        TareaId: data.get('TareaId', 'Debe seleccionar una tarea.')
+        TareaId: data.get('TareaId', 'Debe seleccionar una tarea.'),
+        anio: data.get('anio', 'Debe seleccionar año.')
     };
 
     db.Estimacion.save(estimacionEmulada).then(function(estimacionEmuladaActualizada) {

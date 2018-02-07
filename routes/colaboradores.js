@@ -150,6 +150,7 @@ router.get('/:id/tareas/:filtro', function(req, res, next) {
     var filtroTarea = camposFiltro[2];
     var filtroDepto = parseInt(camposFiltro[3]);
     var filtroSemana = parseInt(camposFiltro[4]);
+    var filtroAnio = moment(new Date()).year();
 
     if(filtroSemana > 0){
         rangoSemana[0] = filtroSemana;
@@ -186,9 +187,12 @@ router.get('/:id/tareas/:filtro', function(req, res, next) {
                 {
                     model: db.Estimacion,
                     where:
-                    {semana: {
-                        $between: rangoSemana
-                    }}
+                    {$and: [
+                      {semana: {
+                              $between: rangoSemana
+                                          }},
+                      {anio: filtroAnio}
+                      ]}
                 },
                 {
                     model: db.Subproyecto,
@@ -252,6 +256,7 @@ router.get('/:id/tareas/:filtro', function(req, res, next) {
                                           id: registro.id,
                                           fecha: moment(new Date(registro.fecha)).format("YYYY-MM-DD"),
                                           semana: moment(new Date(registro.fecha)).week(),
+                                          anio: moment(new Date(registro.fecha)).year(),
                                           horas: registro.horas
                                       })
                                 }),
@@ -261,7 +266,8 @@ router.get('/:id/tareas/:filtro', function(req, res, next) {
                                       {
                                           id: estimacion.id,
                                           semana: estimacion.semana,
-                                          horas: estimacion.horas
+                                          horas: estimacion.horas,
+                                          anio: estimacion.anio
                                       })
                                 }),
                                 subproyecto: tarea.Subproyecto
