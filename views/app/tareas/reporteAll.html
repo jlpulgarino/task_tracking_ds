@@ -5,6 +5,8 @@
     <ng-form class="form-horizontal">
         <div class="form-group">
             <div class="col-sm-12">
+              <label  class="col-xs-1" for="anio">Año: </label>
+              <input disabled bled type="text" class="col-xs-1" ng-model="filtro.anio" id="anio" placeholder="Año">
                 <label  class="control-label" for="semIni">Desde Semana: </label>
                 <select  bled name="clbrId" ng-model="filtro.semIni" ng-options="semana.id as semana.label for semana in semanas" placeholder="Semana inicial"></select>
                 <label  class="control-label" for="semFin"> Hasta Semana: </label>
