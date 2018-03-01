@@ -9,6 +9,8 @@
               <select name="pryId" ng-model="filtro.pryId" ng-options="proyecto.id as proyecto.nombre for proyecto in proyectos" >
                   <option value="0">Todos</option>
               </select>
+              <label for="semanaNum">Año: </label>
+              <input bled type="text" ng-model="filtro.anioNum" id="anioNum" placeholder="Año" hidden>
               <label for="semanaNum">Semana: </label>
               <input bled type="text" ng-model="filtro.semanaNum" id="semanaNum" placeholder="Semana">
              <button type="submit" class="btn btn-default btn-sm" ng-click="refreshTareas()">Ver Tareas</button>
